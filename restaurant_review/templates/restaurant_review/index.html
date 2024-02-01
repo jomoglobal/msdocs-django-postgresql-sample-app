@@ -1,3 +1,6 @@
+<!--
+ORIGINAL HTML CODE:
+
 {% extends "restaurant_review/base.html" %}
 {% load restaurant_extras %}
 {% block title %}Restaurant List{% endblock %}
@@ -73,4 +76,43 @@
   <div class="d-flex justify-content-end">
           <a href="{% url 'create_restaurant' %}" class="btn btn-success px-4 gap-3">Add new restaurant</a>
   </div>
+{% endblock %}
+
+END OF ORIGINAL HTML CODE
+-->
+
+{% extends "restaurant_review/base.html" %}
+{% block title %}Azure Pricing List{% endblock %}
+
+{% block content %}
+  <h1>Azure Pricing</h1>
+
+  {% if pricing_data %}
+      <table class="table">
+          <thead>
+              <tr>
+                  <th>SKU</th>
+                  <th>Retail Price</th>
+                  <th>Unit of Measure</th>
+                  <th>Region</th>
+                  <th>Meter</th>
+                  <th>Product Name</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for price in pricing_data %}
+                  <tr>
+                      <td>{{ price.sku }}</td>
+                      <td>{{ price.retail_price }}</td>
+                      <td>{{ price.unit_of_measure }}</td>
+                      <td>{{ price.region }}</td>
+                      <td>{{ price.meter }}</td>
+                      <td>{{ price.product_name }}</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  {% else %}
+      <p>No pricing data available.</p>
+  {% endif %}
 {% endblock %}
