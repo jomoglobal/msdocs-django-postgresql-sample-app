@@ -39,9 +39,9 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
 ]
-```
 ### Update index.html
-```{% extends "restaurant_review/base.html" %}
+```
+{% extends "restaurant_review/base.html" %}
 {% block title %}Azure Pricing List{% endblock %}
 
 {% block content %}
@@ -75,4 +75,5 @@ urlpatterns = [
   {% else %}
       <p>No pricing data available.</p>
   {% endif %}
-{% endblock %}```
+{% endblock %}
+```
