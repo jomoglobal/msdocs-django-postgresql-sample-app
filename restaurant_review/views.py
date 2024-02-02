@@ -77,15 +77,32 @@
 
 
 
-#UPDATED CODE:
+# #UPDATED CODE:
+# from django.shortcuts import render
+# from .models import AzurePricing
+
+# # Create your views here.
+
+# def index(request):
+#     # For example, you might want to display all AzurePricing entries on the index page
+#     pricing_data = AzurePricing.objects.all()
+#     return render(request, 'restaurant_review/index.html', {'pricing_data': pricing_data})
+
+# # You can create additional views that pertain to your AzurePricing model as needed
+
+
+
+
+#ADDING LOGGING
+import logging
 from django.shortcuts import render
 from .models import AzurePricing
 
-# Create your views here.
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 
 def index(request):
-    # For example, you might want to display all AzurePricing entries on the index page
+    logger.debug('Request for index page received')
     pricing_data = AzurePricing.objects.all()
+    logger.debug(f'Loaded {pricing_data.count()} AzurePricing records')
     return render(request, 'restaurant_review/index.html', {'pricing_data': pricing_data})
-
-# You can create additional views that pertain to your AzurePricing model as needed
