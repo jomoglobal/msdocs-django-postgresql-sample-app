@@ -77,7 +77,7 @@
 
 
 
-# #UPDATED CODE:
+# #UPDATE#1 - UPDATED CODE:
 # from django.shortcuts import render
 # from .models import AzurePricing
 
@@ -93,16 +93,40 @@
 
 
 
-#ADDING LOGGING
+# #UPDATE#2 - ADDING LOGGING
+# import logging
+# from django.shortcuts import render
+# from .models import AzurePricing
+
+# # Get an instance of a logger
+# logger = logging.getLogger(__name__)
+
+# def index(request):
+#     logger.debug('Request for index page received')
+#     pricing_data = AzurePricing.objects.all()
+#     logger.debug(f'Loaded {pricing_data.count()} AzurePricing records')
+#     return render(request, 'restaurant_review/index.html', {'pricing_data': pricing_data})
+
+
+
+#UPDATE#3 - ADDED EXCEPTION HANDLING
 import logging
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import AzurePricing
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 def index(request):
-    logger.debug('Request for index page received')
-    pricing_data = AzurePricing.objects.all()
-    logger.debug(f'Loaded {pricing_data.count()} AzurePricing records')
-    return render(request, 'restaurant_review/index.html', {'pricing_data': pricing_data})
+    try:
+        logger.debug('Request for index page received')
+        pricing_data = AzurePricing.objects.all()
+        logger.debug(f'Loaded {pricing_data.count()} AzurePricing records')
+        return render(request, 'restaurant_review/index.html', {'pricing_data': pricing_data})
+    except Exception as e:
+        # Log the error and return an error message
+        logger.error('Error in index view: %s', str(e), exc_info=True)
+        # If DEBUG is True, you'll see the traceback of the error in your browser
+        # Otherwise, you'll see a generic 500 error page
+        return HttpResponse(f'Error in index view: {e}', status=500)
